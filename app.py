@@ -2,8 +2,14 @@ import streamlit as st
 import pickle
 import pandas as pd
 import os
+import subprocess
 
 st.set_page_config(page_title="Cars24 Advanced Predictor", layout="wide")
+
+if not os.path.exists("models/car_pred"):
+    st.info("Model not found. Training now... please wait.")
+    subprocess.run(["python", "train.py"])
+    st.success("Training complete!")
 
 # --- LOAD ASSETS ---
 @st.cache_resource
